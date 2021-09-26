@@ -1,3 +1,8 @@
-# Project-Booking-the-restaurant
-This Project is all about using MQTT protocol to create web application. The Application is about restaurant reservation.
-To see the report for each week, you can select by the braches of this repo.
+#WEEK1
+
+The main goals of this week are:
+
+    -Implementing mosquitto broker setup to create our own broker that enabled websocket function.
+    -Create frontend of the website to sending some JSON data for testing.
+    -Connecting the frontend, backend and database by sending some JSON from frontend to backend.
+
