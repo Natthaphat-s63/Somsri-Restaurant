@@ -1,4 +1,4 @@
-90# Week1
+# Week1
 The main goals of this week are:
   - Implementing mosquitto broker setup to create our own broker that enabled websocket function.
   - Create frontend of the website to sending some JSON data for testing.
@@ -18,17 +18,29 @@ We decide to setup our own broker to keep this project as private.
 
 Step 1: Install msoquitto following this instruction :http://www.steves-internet-guide.com/install-mosquitto-linux/  *Note: we are using broker on linux
 
-Step 2: Go to /etc/mosquitto/conf.d and then create file name default.conf that include this command
+Step 2: Go to /etc/mosquitto/conf.d and then create file name default.conf that include this commands
 
   - listener 9001
   - protocol websocket
   - listener 1883
   - protocol mqtt
 
-Then save the file. So now when we want to open the broker  use this command in terminal.
+Then save the file. So now when we want to open the broker use this command in terminal.
 
   - mosquitto -c /etc/mosquitto/conf.d/default.conf
 
 Then the terminal will look like this.
 
+<img src="broker_terminal1.png">
+
+Step 3: Don't close the terminal unitil you finish using the broker.
+Step 4: We want to connect to external computer so we use Hamachi to create virtual lan.
+
+to install Hamachi in linux following this step : https://haguichi.net/download/
+
+Step 5: Open the Hamachi and add any external computer user to Hamachi server.
+
+Step 6: Now every external user can connect to the broker by using this URL ws://broker's_hamachi_virtual_ipv4:9001 to connect to the broker.
+
+**Set up backend code**
 
