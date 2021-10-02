@@ -1,0 +1,35 @@
+.queue-container {
+    border: 3px  black;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
+    grid-template-columns: 1fr 1fr;
+    padding: 20px;
+    display: flex;
+    max-width: 600px;
+    max-height: 300px;
+    margin: 20px auto;
+}
+
+.Title {
+    position: relative;
+    left : 40%;
+}
+
+.Qwaiting {
+    position: relative;
+    left: 320px;
+    top: -6px; 
+}
+
+.Qnumber {
+    position: relative;
+    top: 50px;
+    left: -40px;
+}
+
+.Qnumber h2 {
+    align-items: center;
+}
+
+.Qwaiting h2 {
+    align-content: center;
+}
