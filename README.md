@@ -20,32 +20,41 @@ And we can't calculate the remaining queue right now.
 
 **Broker**
 
-We use shell script to open and close mqtt broker when the program open broker will open too and when the program close broker will close too.
+We use shell script to open and close mqtt broker when the program open broker will open and when the program close broker will close too.
 But the problem about using shell script is it require full path to the shell script file.
 
 **GUI**
 
 We decide to create 2 tabs, the first tab is about handling queue in a day and the second tab is about inspect the datas in database.
+Both of 2 tabs use listbox and display as table like in database and you can select a row by click on it and if the datas are too may the list box have a scrollbar. And the gui have exit button on both tabs that when you click on it, it'll ask you to ensure the exit.
+
+<img src = "backendgui2_6.png" width = 600>
 
 *First tab*:
 
-<img src = "backendgui2_1.png">
+In this tab, we read the data specific for the day we open the program. It can display the current data that already update into database without to mannually refresh but if there are some datas that are already in the database with the same date as the day you open the program, you can use refresh button to show them all.
 
-In this tab, we read the data specific for the day we open the program. It can display the current data that already update into database without to mannually refresh but if there are some datas that's already in the database with the same date as the day you open the program, you can use refresh button to show them all.
-And you can search by queue number to find the data of that queue by tying queue number in search entry and click search.
+You can search by queue number to find the data of that queue by tying queue number in search entry and click search.
 
-<img src = "backendgui2_2.png">
+You can cancle the queue and confirm the queue by select the row and clik cancle button or confirm button then the status of that queue will change to CBA (cancle by admin) and DON (Done). The queue data that show on the table it will show only the status is WFA (Waiting for admin) so if you cancle or confirm the queue it will dissappear from table(but you can inspect them in the second tab).
+
+<img src = "backendgui2_1.png" width = 600>
+<img src = "backendgui2_2.png" width = 600>
 
 *Second tab*:
 
-<img src = "backendgui2_3.png">
+In this tab, like the first tab but it can only inspect the data by searching by Name,Date,Tel,Number of people (right now search by date can't use). If you do not enter anything in search entry and click search button, it'll show all the data in database. But this tabs not support auto refresh so you need to click refresh button if you want to inpect the datas.
 
-In this tab, like the first tab but it can only inspect the data by searching by Name,Date,Tel,Number of people (right now search by date can't use). If you do not enter anything in search entry and click search button, it'll show all the data in database.
-
-<img src = "backendgui2_4.png">
-
-<img src = "backendgui2_5.png">
+<img src = "backendgui2_3.png" width = 600>
+<img src = "backendgui2_4.png" width = 600>
+<img src = "backendgui2_5.png" width = 600>
 
 **Conclusion**
+We have redesign the frontend to prepare for the future features.
 
+We can generate the queue number but we can't calculate the remaining queue and send both of them back to front end.
+
+We add some features for backend GUI such as Searching, Multiple tabs, Auto refresh.
+
+So in this week we complete only 1 main goal but we work on minor goal instead because the main goals take alot of time for researching. 
 
