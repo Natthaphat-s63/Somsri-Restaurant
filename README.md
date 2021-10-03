@@ -6,6 +6,10 @@ The main goals of this week are:
 
 # Major change
   - Delete reserve time in both frontend and backend including in database.
+  - Use 3 alphabets to represent the status WFA = Waiting for admin or Pending, CBA = Cancle by admin, CBC = cancle by client, Don = Done or confirm the queue.
+  - Changing the main process to client can only cancle the queue and the restaurant can confirm and cancel the queue to make sure that the client will come to the restaurant.
+  - Adding time_status in the database for record the time when confirm or cancel that are mean that is the end of all process for that queue.
+  
 # Report for Frontend
 Redesign the UI to make it show queue number and remianing number (Does not implementing pub and sub in this frontend) and make it work on both in computer and mobile.
 And we decide to delete the reserve time because it's not in our concept work.
@@ -36,7 +40,7 @@ In this tab, we read the data specific for the day we open the program. It can d
 
 You can search by queue number to find the data of that queue by tying queue number in search entry and click search.
 
-You can cancle the queue and confirm the queue by select the row and clik cancle button or confirm button then the status of that queue will change to CBA (cancle by admin) and DON (Done). The queue data that show on the table it will show only the status is WFA (Waiting for admin) so if you cancle or confirm the queue it will dissappear from table(but you can inspect them in the second tab).
+You can cancel the queue and confirm the queue by select the row and clik cancel button or confirm button then the status of that queue will change to CBA (cancle by admin) and DON (Done). The queue data that show on the table it will show only the status is WFA (Waiting for admin) so if you cancle or confirm the queue it will dissappear from table(but you can inspect them in the second tab).
 
 <img src = "backendgui2_1.png" width = 600>
 <img src = "backendgui2_2.png" width = 600>
