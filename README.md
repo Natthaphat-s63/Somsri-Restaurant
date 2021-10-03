@@ -49,7 +49,8 @@ In this tab, like the first tab but it can only inspect the data by searching by
 <img src = "backendgui2_4.png" width = 600>
 <img src = "backendgui2_5.png" width = 600>
 
-**Conclusion**
+
+# Conclusion
 We have redesign the frontend to prepare for the future features.
 
 We can generate the queue number but we can't calculate the remaining queue and send both of them back to front end.
