@@ -43,6 +43,7 @@ Step 5: Open the Hamachi and add any external computer user to Hamachi server.
 Step 6: Now every external user can connect to the broker by using this URL ws://broker's_hamachi_virtual_ipv4:9001 to connect to the broker.
 
 **Backend side**
+
 We use Paho mqtt for subscribe data from broker, JSON-C library for JSON data, Mysql for database and GTK3 for backend GUI.
 In backend.c you will find that we use message callback function of Paho mqtt to split the JSON data and write the data to Mysql database.
 And the database generate unique ID automatically along with the time_login that is the time when the data has written in database.
