@@ -6,7 +6,7 @@ The main goals of this week are:
 
 # Major change
   - Delete reserve time in both frontend and backend including in database.
-  - Use 3 alphabets to represent the status WFA = Waiting for admin or Pending, CBA = Cancle by admin, CBC = cancle by client, DON = Done or confirm the queue.
+  - Use 3 alphabets to represent the status WFA = Waiting for admin or Pending, CBA = Cancle by admin, CBC = cancel by client, DON = Done or confirm the queue.
   - Changing the main process to client can only cancle the queue and the restaurant can confirm and cancel the queue to make sure that the client will come to the restaurant.
   - Adding time_status in the database for record the time when confirm or cancel that are mean that is the end of all process for that queue.
   
