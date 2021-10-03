@@ -1,4 +1,4 @@
-//gcc -Wall usethis.c -o us -lpaho-mqtt3c -ljson-c -lmysqlclient -lpthread `pkg-config --cflags gtk+-3.0` `pkg-config --libs gtk+-3.0` 
+//gcc -Wall backend2.c -o b2 -lpaho-mqtt3c -ljson-c -lmysqlclient -lpthread `pkg-config --cflags gtk+-3.0` `pkg-config --libs gtk+-3.0` 
 //mosquitto -c /etc/mosquitto/conf.d/default.conf
 
 #include <json-c/json.h>
@@ -100,12 +100,12 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
 			  printf("%s \n",obj[i]);
 		  }
         //INSERT DATA
-		  if (mysql_real_connect(con,"localhost", "root", "67-2-3","TEST01", 0, NULL, 0) == NULL)
+		  if (mysql_real_connect(con,"localhost", "root", "password","mydb", 0, NULL, 0) == NULL)
 		  {
     		finish_with_error(con);
 		  }
     
-      if (mysql_query(con, "SELECT queue FROM table1 ORDER BY id DESC"))
+      if (mysql_query(con, "SELECT queue FROM queue ORDER BY id DESC"))
       {
       	   finish_with_error(con);
   		}
@@ -128,7 +128,7 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
       mysql_free_result(result);
   
       char query[256];
-      sprintf(query,"INSERT INTO table1 (Name,tel,num_people,queue,status) VALUES('%s','%s','%s','%d','WFA')",obj[0],obj[1],obj[2],recent_queue);
+      sprintf(query,"INSERT INTO queue (Name,tel,num_people,queue,status) VALUES('%s','%s','%s','%d','WFA')",obj[0],obj[1],obj[2],recent_queue);
       if (mysql_query(con, query))
       {
       	   finish_with_error(con);
@@ -167,7 +167,7 @@ int main(int argc, char **argv){
   time_t rawt = time(NULL);
   struct tm  *time = localtime(&rawt);
   sprintf(date,"%d-%02d-%02d",time->tm_year + 1900,time->tm_mon + 1,time->tm_mday);
-  //int r = system("x-terminal-emulator -e \"/home/s6301012620111/Desktop/Project_book/Hill/open_broker.sh\"");
+  int r = system("x-terminal-emulator -e \"/home/hill/Desktop/backend/week2/open_broker.sh\"");
   MQTTClient_create(&client,ADDRESS,CLIENTID,MQTTCLIENT_PERSISTENCE_NONE,NULL);
 	MQTTClient_setCallbacks(client,NULL,connlost,msgarrvd,NULL);
   usleep(100000);
@@ -180,16 +180,16 @@ int main(int argc, char **argv){
 	}
   
 	
-  app = gtk_application_new( NULL, G_APPLICATION_FLAGS_NONE );
+  app = gtk_application_new( NULL, G_APPLICATION_FLAGS_NONE );        //create application
 	//g_timeout_add_seconds( 1 /*sec*/, G_SOURCE_FUNC(timeout), NULL );
-	g_signal_connect( app, "activate", G_CALLBACK(activate), NULL );
+	g_signal_connect( app, "activate", G_CALLBACK(activate), NULL );    
 	// start the application main loop (blocking call)
   g_application_run( G_APPLICATION(app), argc, argv );
 	// decrease the reference count to the object
 	g_object_unref( app );
   MQTTClient_disconnect(client, 10000);
   MQTTClient_destroy(&client);
-  //r = system("/home/s6301012620111/Desktop/Project_book/Hill/kill_broker.sh");
+  r = system("/home/hill/Desktop/backend/week2/kill_broker.sh");
 	return 0;
   
 
@@ -197,7 +197,7 @@ int main(int argc, char **argv){
 
 static gboolean btn_clicked(GtkWidget *widget, gpointer parent){
   GtkWidget *dialog;
-  dialog = gtk_message_dialog_new(GTK_WINDOW(parent), 
+  dialog = gtk_message_dialog_new(GTK_WINDOW(parent),     //create popup window
               GTK_DIALOG_DESTROY_WITH_PARENT, 
               GTK_MESSAGE_QUESTION, 
               GTK_BUTTONS_YES_NO, 
@@ -248,7 +248,7 @@ void view_selected(GtkTreeSelection *sel, gpointer data){
       //g_print("Parent author: %s\n", p_author);
     }*/
 
-    gtk_tree_model_get(model, &iter, COL_ID, &ID, -1);
+    gtk_tree_model_get(model, &iter, COL_ID, &ID, -1);        //Gets the value displayed for each column in the same row. 
     gtk_tree_model_get(model, &iter, COL_QUEUE, &QUEUE, -1);
     gtk_tree_model_get(model, &iter, COL_NAME, &NAME, -1);
     gtk_tree_model_get(model, &iter, COL_NUMBER, &NUMBER, -1);
@@ -272,9 +272,9 @@ void view_selected(GtkTreeSelection *sel, gpointer data){
 
 void searchbutton_callback(GtkWidget *b, gpointer data){
 
-  const gchar *queue_id = gtk_entry_get_text(GTK_ENTRY(Entryq));
+  const gchar *queue_id = gtk_entry_get_text(GTK_ENTRY(Entryq));    //Gets the value that is in the id entry.
 
-  gtk_tree_store_clear(store);
+  gtk_tree_store_clear(store);  //clear all liststore
 
   MYSQL *con = mysql_init(NULL);
   if (con == NULL)
@@ -282,13 +282,13 @@ void searchbutton_callback(GtkWidget *b, gpointer data){
       fprintf(stderr, "mysql_init() failed\n");
       exit(1);
   }
-  if (mysql_real_connect(con, "localhost", "root", "67-2-3",
-          "TEST01", 0, NULL, 0) == NULL)
+  if (mysql_real_connect(con, "localhost", "root", "password",
+          "mydb", 0, NULL, 0) == NULL)
   {
       finish_with_error(con);
   }
 
-  if (mysql_query(con, "SELECT id,Name,time_login,tel,num_people,queue,status,time_status FROM table1"))
+  if (mysql_query(con, "SELECT id,Name,time_login,tel,num_people,queue,status,time_status FROM queue"))
   {
       finish_with_error(con);
   }
@@ -304,9 +304,9 @@ void searchbutton_callback(GtkWidget *b, gpointer data){
   MYSQL_ROW row;
   while ((row = mysql_fetch_row(result))) //use data in row
   { 
-      if(strcmp(row[5],queue_id) == 0){
+      if(strcmp(row[5],queue_id) == 0){       //Match the same ID sent in the entry.
 
-        gtk_tree_store_append(store, &iter1, NULL);
+        gtk_tree_store_append(store, &iter1, NULL);   //create liststore
         gtk_tree_store_set(store, &iter1,
         COL_NAME, row[1], 
         COL_QUEUE, row[5], 
@@ -315,7 +315,7 @@ void searchbutton_callback(GtkWidget *b, gpointer data){
         COL_STATUS,row[6],
         COL_TISTA ,row[7], -1);
 
-        state = 1;
+        state = 1;      //change the stage (It is there to prevent refresh while searching for id)
 
       }
       else{
@@ -346,8 +346,8 @@ void search2button_callback(GtkWidget *b, gpointer data){
       fprintf(stderr, "mysql_init() failed\n");
       exit(1);
   }
-  if (mysql_real_connect(con, "localhost", "root", "67-2-3",
-          "TEST01", 0, NULL, 0) == NULL)
+  if (mysql_real_connect(con, "localhost", "root", "password",
+          "mydb", 0, NULL, 0) == NULL)
   {
       finish_with_error(con);
   }
@@ -364,19 +364,19 @@ void search2button_callback(GtkWidget *b, gpointer data){
     printf("%d",count);
 
     if (count == 3){
-        sprintf(query,"SELECT  * FROM table1");
+        sprintf(query,"SELECT  * FROM queue");
     }
     else if (count == 2)
     {
-        sprintf(query,"SELECT  * FROM table1 WHERE Name = '%s' OR tel = '%s' OR num_people = %d",name2,tel2,atoi(numpeople2));
+        sprintf(query,"SELECT  * FROM queue WHERE Name = '%s' OR tel = '%s' OR num_people = %d",name2,tel2,atoi(numpeople2));
     }
     else if (count == 1)
     {
-        sprintf(query,"SELECT  * FROM table1 WHERE (Name = '%s' AND tel = '%s') OR (Name = '%s' AND num_people = %d) OR (tel = '%s'  AND num_people = %d) OR (tel = '%s'  AND Name = '%s')",name2,tel2,name2,atoi(numpeople2),tel2,atoi(numpeople2),tel2,name2);
+        sprintf(query,"SELECT  * FROM queue WHERE (Name = '%s' AND tel = '%s') OR (Name = '%s' AND num_people = %d) OR (tel = '%s'  AND num_people = %d) OR (tel = '%s'  AND Name = '%s')",name2,tel2,name2,atoi(numpeople2),tel2,atoi(numpeople2),tel2,name2);
     }
      else if (count == 0)
     {
-        sprintf(query,"SELECT  * FROM table1 WHERE Name = '%s' AND tel = '%s' AND num_people = %d",name2,tel2,atoi(numpeople2));
+        sprintf(query,"SELECT  * FROM queue WHERE Name = '%s' AND tel = '%s' AND num_people = %d",name2,tel2,atoi(numpeople2));
     }
 
   if (mysql_query(con, query))
@@ -426,15 +426,15 @@ void confirmbutton_callback(GtkWidget *b, gpointer data){
       fprintf(stderr, "mysql_init() failed\n");
       exit(1);
   }
-  if (mysql_real_connect(con, "localhost", "root", "67-2-3",
-          "TEST01", 0, NULL, 0) == NULL)
+  if (mysql_real_connect(con, "localhost", "root", "password",
+          "mydb", 0, NULL, 0) == NULL)
   {
       finish_with_error(con);
   }
 
   int sel = atoi(selected);
   char query[256];
-      sprintf(query,"UPDATE table1 SET status='DON' WHERE id = %d",sel);
+      sprintf(query,"UPDATE queue SET status='DON' WHERE id = %d",sel);
       if (mysql_query(con, query))
       {
              finish_with_error(con);
@@ -453,8 +453,8 @@ void cancbutton_callback(GtkWidget *b1, gpointer data){
       fprintf(stderr, "mysql_init() failed\n");
       exit(1);
   }
-  if (mysql_real_connect(con, "localhost", "root", "67-2-3",
-          "TEST01", 0, NULL, 0) == NULL)
+  if (mysql_real_connect(con, "localhost", "root", "password",
+          "mydb", 0, NULL, 0) == NULL)
   {
       finish_with_error(con);
   }
@@ -463,7 +463,7 @@ void cancbutton_callback(GtkWidget *b1, gpointer data){
   }
   int sel = atoi(selected);
   char query[256];
-      sprintf(query,"UPDATE table1 SET status='CBA' WHERE id = %d",sel);
+      sprintf(query,"UPDATE queue SET status='CBA' WHERE id = %d",sel);
       if (mysql_query(con, query))
       {
              finish_with_error(con);
@@ -487,16 +487,16 @@ void refbutton_callback(GtkWidget *b1, gpointer data){
       fprintf(stderr, "mysql_init() failed\n");
       exit(1);
   }
-  if (mysql_real_connect(con, "localhost", "root", "67-2-3",
-          "TEST01", 0, NULL, 0) == NULL)
+  if (mysql_real_connect(con, "localhost", "root", "password",
+          "mydb", 0, NULL, 0) == NULL)
   {
       finish_with_error(con);
   }
 
   char query[256];
-  sprintf(query,"SELECT * FROM table1 WHERE DATE(time_login) = '%s' AND status = 'WFA'",date);
+  sprintf(query,"SELECT * FROM queue WHERE DATE(time_login) = '%s' AND status = 'WFA'",date);
   if (mysql_query(con, query))finish_with_error(con);
-  /*if (mysql_query(con, "SELECT id,Name,tel,num_people,queue,status,time_status FROM table1"))
+  /*if (mysql_query(con, "SELECT id,Name,tel,num_people,queue,status,time_status FROM queue"))
   {
       finish_with_error(con);
   }*/
@@ -513,7 +513,7 @@ void refbutton_callback(GtkWidget *b1, gpointer data){
   int num_fields = mysql_num_fields(result); //len column
   MYSQL_ROW row;
   
-  while ((row = mysql_fetch_row(result))) //use data in row
+  while ((row = mysql_fetch_row(result))) //use data in row for show every row
   { 
 
         gtk_tree_store_append(store, &iter1, NULL);
@@ -543,27 +543,27 @@ void activate( GtkApplication *app, gpointer user_data ){
     //gtk_init(&argc, &argv);
     MQTTClient_subscribe(client, TOPIC, QOS);
 
-    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);                                                 //create window
     gtk_window_set_title(GTK_WINDOW(window), "Somsri Restaurant");
     gtk_container_set_border_width(GTK_CONTAINER(window), 10);
     //gtk_window_fullscreen(window);
-    g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(btn_clicked), (gpointer) window);
+    g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(btn_clicked), (gpointer) window);    //If selected, press the destroy button on the top right.
 
-    vbox00 = gtk_vbox_new (FALSE, 0);
-    gtk_container_add (GTK_CONTAINER (window), vbox00);
+    vbox00 = gtk_vbox_new (FALSE, 0);                                                             //Vertical box, if added later will be added below.
+    gtk_container_add (GTK_CONTAINER (window), vbox00);                                           //Put this box in Windows
 
-    notebook = gtk_notebook_new ();
-    gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_TOP);
-    gtk_box_pack_start (GTK_BOX (vbox00), notebook, TRUE, TRUE, 0);
+    notebook = gtk_notebook_new ();                                                               //create notebook
+    gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_TOP);                              //set tap position (top)
+    gtk_box_pack_start (GTK_BOX (vbox00), notebook, TRUE, TRUE, 0);                               //put this widgets in this box
 
     tab1 = gtk_label_new ("Tab1");
     gtk_widget_show (tab1);
 
     vbox0 = gtk_vbox_new(FALSE, 5);
     //gtk_container_add(GTK_CONTAINER(window), vbox0);
-    gtk_notebook_append_page (GTK_NOTEBOOK (notebook), vbox0 , tab1);
+    gtk_notebook_append_page (GTK_NOTEBOOK (notebook), vbox0 , tab1);                             //add vbox0 in tab1
 
-    hbox0 = gtk_hbox_new(FALSE, 5);
+    hbox0 = gtk_hbox_new(FALSE, 5);                                                               //Horizontal box, if add widget, it will add right side.
     gtk_box_pack_start(GTK_BOX(vbox0), hbox0, TRUE, TRUE, 0);
 
     labelid = gtk_label_new("Enter Queue: ");
@@ -573,10 +573,10 @@ void activate( GtkApplication *app, gpointer user_data ){
     gtk_box_pack_start(GTK_BOX(hbox0), Entryq, TRUE, TRUE, 0);
 
     Bs = gtk_button_new_with_label("Search");
-    gtk_widget_set_can_focus(Bs, FALSE);
+    gtk_widget_set_can_focus(Bs, FALSE);                                                        //Specifies whether widget can own the input focus
     gtk_widget_set_size_request(Bs, 10, 10);
     gtk_box_pack_start(GTK_BOX(hbox0), Bs, TRUE, TRUE, 0);
-    g_signal_connect(Bs,"clicked",G_CALLBACK(searchbutton_callback),NULL /*data callback*/);
+    g_signal_connect(Bs,"clicked",G_CALLBACK(searchbutton_callback),NULL /*data callback*/);    //If a button is pressed, the callback function is activated.
     //g_signal_connect(Bs,"clicked",G_CALLBACK(refbutton_callback),NULL);
 
     hbox = gtk_hbox_new(FALSE, 5);
@@ -593,14 +593,14 @@ void activate( GtkApplication *app, gpointer user_data ){
     vbox = gtk_vbox_new(FALSE, 5);
     gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 0);
 
-    scrwin = gtk_scrolled_window_new (NULL, NULL);
-    gtk_widget_set_hexpand (scrwin, TRUE);
+    scrwin = gtk_scrolled_window_new (NULL, NULL);  
+    gtk_widget_set_hexpand (scrwin, TRUE);                            //Sets whether the widget would like any available extra horizontal space. When a user resizes a GtkWindow, widgets with expand=TRUE generally receive the extra space.
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrwin), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
-    gtk_container_add (GTK_CONTAINER (eventbox), scrwin);
+    gtk_container_add (GTK_CONTAINER (eventbox), scrwin);                                     //add scrollbar to eventbox 
 
 
     listbox = gtk_list_box_new();
-    gtk_list_box_set_selection_mode (GTK_LIST_BOX (listbox), GTK_SELECTION_NONE);
+    gtk_list_box_set_selection_mode (GTK_LIST_BOX (listbox), GTK_SELECTION_NONE);       //You can select a value in the listbox
     gtk_container_add (GTK_CONTAINER (scrwin), listbox);
 
 
@@ -631,12 +631,12 @@ void activate( GtkApplication *app, gpointer user_data ){
         "text", COL_ID, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(tree), column);*/
 
-    renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes(
+    renderer = gtk_cell_renderer_text_new();                                //widgets are used to display information within widgets
+    column = gtk_tree_view_column_new_with_attributes(                      //create column
         "QUEUE", 
         renderer, 
         "text", COL_QUEUE, NULL);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(tree), column);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(tree), column);               //append the column
 
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes(
@@ -842,7 +842,6 @@ void activate( GtkApplication *app, gpointer user_data ){
     gtk_widget_set_size_request(Bex2, 64, 64);
     gtk_box_pack_start(GTK_BOX(vbox2), Bex2, TRUE, TRUE, 0);
     g_signal_connect(G_OBJECT(Bex2), "clicked", G_CALLBACK(btn_clicked), (gpointer) window);
-
 
     gtk_widget_show_all(window); 
     gtk_main();
