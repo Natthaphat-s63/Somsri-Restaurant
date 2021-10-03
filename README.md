@@ -50,7 +50,8 @@ And the database generate unique ID automatically along with the time_login that
 For GUI, right now we can refresh the data to read data from database and show them on GUI and we can use exit button to close the program.
 
 **Conclusion**
-We have created frontend and backend of the website that can send data through each other and write the data to the database.
+We have created frontend and backend of the website that can send data through each other and write the data to the database. All of our main goals are completed.
+
 the result:
 
 <img src="backend_guit1.png">
