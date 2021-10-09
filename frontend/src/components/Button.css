@@ -1,0 +1,119 @@
+
+.form-submit-btn {
+    width: 80%;
+    height: 50px;
+    margin-top: 10px;
+    border-radius: 30px;
+    outline: none;
+    border: solid #6D6968;
+    color: #000000;
+    font-size: 1rem;
+    font-weight: bold;
+    background: rgba(1, 58, 31, 0.301);
+    
+}
+
+.form-submit-btn:hover {
+    cursor: pointer;
+    background: linear-gradient(
+        90deg,
+        rgb(55, 206, 173) 0%,
+        rgb(56, 146, 142) 100%
+    );
+    color: #fff;
+}
+
+.form-submit-btn:disabled {
+    cursor: pointer;
+    background: rgba(58, 1, 10, 0.301);
+}
+
+.form-submit-btn:hover:disabled {
+    cursor: pointer;
+    background: linear-gradient(
+        90deg,
+        rgb(255, 39, 50) 0%,
+        rgb(236, 86, 0) 100%
+    );
+    color: #fff;
+}
+
+.form-cancel-btn {
+    width: 80%;
+    height: 50px;
+    margin-top: 10px;
+    border-radius: 30px;
+    outline: none;
+    border: solid #6D6968;
+    color: #000000;
+    font-size: 1rem;
+    font-weight: bold;
+    background: rgba(1, 58, 31, 0.301);
+}
+
+.form-cancel-btn:hover {
+    cursor: pointer;
+    background: linear-gradient(
+        90deg,
+        rgb(55, 206, 173) 0%,
+        rgb(56, 146, 142) 100%
+    );
+    color: #fff;
+}
+
+.form-cancel-btn:disabled {
+    cursor: pointer;
+    background: rgba(58, 1, 10, 0.301);
+}
+
+
+.form-cancel-btn:hover:disabled {
+    cursor: pointer;
+    background: linear-gradient(
+        90deg,
+        rgb(255, 39, 50) 0%,
+        rgb(236, 86, 0) 100%
+    );
+    color: #fff;
+}
+
+
+.form-queue-btn {
+    width: 80%;
+    height: 50px;
+    margin-top: 10px;
+    border-radius: 30px;
+    outline: none;
+    border: solid #6D6968;
+    color: #000000;
+    font-size: 1rem;
+    font-weight: bold;
+    background: rgba(1, 58, 31, 0.301);
+}
+
+.form-queue-btn:hover {
+    cursor: pointer;
+    background: linear-gradient(
+        90deg,
+        rgb(55, 206, 173) 0%,
+        rgb(56, 146, 142) 100%
+    );
+    color: #fff;
+}
+
+.form-queue-btn:disabled {
+    cursor: pointer;
+    background: rgba(58, 1, 10, 0.301);
+}
+
+
+.form-queue-btn:hover:disabled {
+    cursor: pointer;
+    background: linear-gradient(
+        90deg,
+        rgb(255, 39, 50) 0%,
+        rgb(236, 86, 0) 100%
+    );
+    color: #fff;
+}
+

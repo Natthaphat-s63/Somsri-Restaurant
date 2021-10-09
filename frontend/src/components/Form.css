@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitter&display=swap');
+
+.form-container {
+    margin: 50px auto;
+    width: 100%;
+    /* box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);*/
+    position: relative;
+    left: 10px;
+    border-radius: 10px;
+    height: 600px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /*background: linear-gradient(90deg, rgb(40, 40, 40) 0%, rgb(17, 17, 17) 100%);*/
+    align-items: center;
+    
+}
+
+.form-inputs-contents {
+    position: relative;
+    left: 40px;
+}
+
+
+.form-content{
+    align-content: center;
+    border-radius: 0 10px 10px 0;
+    position: relative;
+}
+
+.form {
+    background: rgba(245, 227, 179, 0.205);
+	border-radius: 0.5em;
+	box-shadow: 0 0 1em 0 rgba(241, 134, 134, 0.25);
+	display: block;
+	max-width: 500px;
+	overflow: hidden;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	padding: 2em;
+	position: absolute;
+		top: 50%;
+		left: 100%;
+		z-index: 1;
+	width: 200%;
+    border: solid 0.5px #000000;
+}
+
+.form h1 {
+    font-family: 'Bitter', serif;
+    font-size: 36px;
+    font-weight: bolder;
+    text-align: start;
+    width: 80%;
+    margin-bottom: 36px;
+    position: relative;
+    left: 25%;
+}
+
+.form-inputs {
+    margin-bottom: 0.5rem;
+    width: 80%;
+}
+
+.form-label {
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 6px;
+    font-weight: 600;
+
+}
+
+.form-input {
+    display: block;
+    padding-left: 10px;
+    outline: none;
+    border-radius: 2px;
+    height: 40px;
+    width: 100%;
+    border: none;
+    border-bottom: ridge #8d8d8d;
+    background: transparent;
+}
+
+.form-input::placeholder {
+    color: #595959;
+    font-size: 12px;
+}
+
+.form-input:focus {
+    border-bottom: solid #000000;
+    background: #cfc3c341;
+}
+
+.form-input:disabled {
+    background: #dfdfdf93;
+    border: solid #000000;
+}

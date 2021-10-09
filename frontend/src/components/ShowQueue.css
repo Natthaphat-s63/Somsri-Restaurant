@@ -1,0 +1,36 @@
+.queue-container {
+    padding: 20px;
+    display: flex;
+    max-width: 600px;
+    height: 160px;
+    margin: 50px auto;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.884);
+}
+
+.Title {
+    position: relative;
+    left : 40%;
+}
+
+.Qwaiting {
+    position: relative;
+    left: 320px;
+    top: -6px; 
+
+}
+
+.Qnumber {
+    position: relative;
+    top: 50px;
+    left: -40px;
+
+}
+
+.queue-content h3 {
+    font-weight: lighter;
+}
+
+.queue-content h2 {
+    font-weight: bolder;
+}
