@@ -61,5 +61,5 @@ We can generate the queue number but we can't calculate the remaining queue and 
 
 We add some features for backend GUI such as Searching, Multiple tabs, Auto refresh.
 
-So in this week we complete only 1 main goal but we work on minor goal instead because the main goals take alot of time for researching. 
+So in this week we complete only 1 main goal but we work on minor goals instead because the main goals take a lot of time in researching. 
 
