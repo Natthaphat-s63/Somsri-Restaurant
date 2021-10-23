@@ -1,0 +1,41 @@
+
+    .container
+    {
+
+        justify-content: center;
+
+        align-items: center;
+
+        display: grid;
+
+        width: 100%;
+
+        margin: 80px auto;
+
+        grid-template-columns: 400px  ;
+
+        color:dimgrey;
+
+    }
+    .addr{
+        font-size: 16px;
+        text-align: center;
+        width: 100%;
+        font-weight: lighter;
+    }
+    .open
+    {
+        font-size: 18px;
+        width: 100%;
+        font-weight: lighter;
+    }
+    .container h1
+    {
+        font-size: 20px;
+    }
+    .container h2
+    {
+        font-size: 18px;
+    }
+
+    
