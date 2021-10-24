@@ -18,7 +18,7 @@
 #define NUM_JSON_ELEMENT     4
 #define ADDRESS             "ws://localhost:9001"
 #define CLIENTID            "ExampleClientPub"
-#define TOPIC               "test/#"
+#define TOPIC               "request/#"
 #define QOS                  2
 #define TIMEOUT              10000L
 
@@ -124,17 +124,17 @@ void send_res(char* id,int Q,int R)
  
 }
 
-void send_showR(int R)
+void send_recent_remaining(int R)
 {
   MQTTClient_message pubmsg = MQTTClient_message_initializer;
   char payload[20];
   if(R==0)R=-1;
-  sprintf(payload,"{\"showR\":\"%d\"}",R+1); 
+  sprintf(payload,"{\"recent_remaining\":\"%d\"}",R+1); 
   pubmsg.payload = payload;
   pubmsg.payloadlen = strlen(payload);
   pubmsg.qos = QOS;
   pubmsg.retained = 0;
-  MQTTClient_publishMessage(client,"showR",&pubmsg,NULL);
+  MQTTClient_publishMessage(client,"recent_remaining",&pubmsg,NULL);
 }
 
 int remaining(int Q)
@@ -204,7 +204,7 @@ void *Thread_job()
         MYSQL_RES *result = mysql_store_result(con);
         if (mysql_num_rows(result)==0)
         {
-          send_showR(0);  
+          send_recent_remaining(0);  
           mysql_free_result(result);
           mysql_close(con);
           continue;
@@ -235,7 +235,7 @@ void *Thread_job()
             remain_recorder[i] = remain;
             i++;
         }
-        send_showR(remain_recorder[size-1]);          
+        send_recent_remaining(remain_recorder[size-1]);          
         free(remain_recorder);
         free(queue_recorder);
         free(query);
