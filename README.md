@@ -3,10 +3,17 @@
   - Auto refresh for cancelling from client.
   - Make frontend website be responsive.
   - Clear all the bugs.
-  - Validation check for website input.
+  - Validation check for website.
   
 # Major change
   - Change topics name such as from 'test' to 'request' and from 'showR' to 'recent_remaining'.
+  - Responsive webpage.
+  - Handled the open and close time of restaurant.
+  - Handled the connection problem in web frontend side.
+  - Handled cancel request in backend side.
+  - Validation check in web frontend side.
+  - Fixing frontend bugs.
+   
 # Report for Frontend
  We have made website to be responsive by using Media query method in CSS.
  
