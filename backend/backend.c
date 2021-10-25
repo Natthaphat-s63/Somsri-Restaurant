@@ -522,8 +522,27 @@ void view_selected(GtkTreeSelection *sel, gpointer data)
         gtk_tree_model_get(model, &iter, COL_TEL, &TEL, -1);
         gtk_tree_model_get(model, &iter, COL_STATUS, &STATUS, -1);
         gtk_tree_model_get(model, &iter, COL_TISTA, &TISTA, -1);
-        
-        if(strcmp(STATUS,"WFA")==0)
+        MYSQL *con = mysql_init(NULL);
+        if (con == NULL)
+        {
+            fprintf(stderr, "mysql_init() failed\n");
+            exit(1);
+        }
+        if (mysql_real_connect(con, "localhost", "root", "password","mydb", 0, NULL, 0) == NULL)
+        {
+            finish_with_error(con);
+        }
+        char *query = malloc(120);
+        sprintf(query,"SELECT status FROM queue WHERE DATE(time_login) = '%s' AND queue = %d AND status = 'WFA'",date,atoi(QUEUE));
+        if (mysql_query(con,query))
+        {
+            finish_with_error(con);
+        }   
+        free(query);
+        MYSQL_RES *result = mysql_store_result(con); //all data
+
+
+        if(mysql_num_rows(result)!=0)
         {
             selected = QUEUE;
             statesel = 1;
@@ -736,12 +755,12 @@ void confirmbutton_callback(GtkWidget *b, gpointer data)
 
     int sel = atoi(selected);
     char *query = malloc(256);
-    sprintf(query,"UPDATE queue SET status='DON' WHERE QUEUE = %d AND status = 'WFA' AND DATE(time_login) = '%s'",sel,date);
+    sprintf(query,"UPDATE queue SET status='DON' WHERE queue = %d AND status = 'WFA' AND DATE(time_login) = '%s'",sel,date);
     if (mysql_query(con, query))
     {
         finish_with_error(con);
     }
-    sprintf(query,"SELECT c_id FROM queue WHERE QUEUE = %d AND status = 'DON' AND DATE(time_login) = '%s'",sel,date);
+    sprintf(query,"SELECT c_id FROM queue WHERE queue = %d AND status = 'DON' AND DATE(time_login) = '%s'",sel,date);
     if (mysql_query(con, query))
     {
             finish_with_error(con);
@@ -778,13 +797,13 @@ void cancbutton_callback(GtkWidget *b1, gpointer data){
 
   int sel = atoi(selected);
   char *query = malloc(256);
-  sprintf(query,"UPDATE queue SET status='CBA' WHERE QUEUE = %d AND status = 'WFA' AND DATE(time_login) = '%s'",sel,date);
+  sprintf(query,"UPDATE queue SET status='CBA' WHERE queue = %d AND status = 'WFA' AND DATE(time_login) = '%s'",sel,date);
 
   if (mysql_query(con, query))
   {
         finish_with_error(con);
   }
-  sprintf(query,"SELECT c_id FROM queue WHERE QUEUE = %d AND status = 'CBA' AND DATE(time_login) = '%s'",sel,date);
+  sprintf(query,"SELECT c_id FROM queue WHERE queue = %d AND status = 'CBA' AND DATE(time_login) = '%s'",sel,date);
   if (mysql_query(con, query))
   {
         finish_with_error(con);
