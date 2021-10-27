@@ -13,6 +13,7 @@
   - Handled cancel request in backend side.
   - Validation check in web frontend side.
   - Fixing frontend bugs.
+  - Open mosquitto broker on startup. Not use shell script anymore.
    
 # Report for Frontend
  We have made website to be responsive by using Media query method in CSS.
