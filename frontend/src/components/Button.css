@@ -1,0 +1,121 @@
+
+.form-btn{
+
+    width: 100%;
+
+    display: inline-block;
+
+    align-content: center;
+
+    justify-content: center;
+
+}
+
+.form-submit-btn{
+
+    font-weight: bold ;
+
+    font-size: large;
+
+    margin:10px;
+
+    width: 60%;
+
+    height: 40px;
+
+    border: 2px solid rgb(0, 0, 0);
+
+    border-radius: 5px;
+
+    box-shadow: 0 2px 2px rgb(158, 158, 158);
+
+    background-image: linear-gradient(75deg, #43C6AC, #134E5E, #009172, #78ffd6); 
+    background-size: 300% ;
+    background-position: right;
+    
+    transition: 300ms background-position ease-in-out;
+
+    color: rgb(255, 255, 255);
+
+}
+
+.form-submit-btn:hover{
+
+    box-shadow: none;
+}
+
+.form-submit-btn:active{
+    background-position: left;
+}
+
+.form-queue-btn{
+
+    
+    margin: 10px;
+
+    width: 60%;
+
+    height: 40px;
+
+    border: 2px solid rgb(0, 0, 0);
+
+    border-radius: 5px;
+
+    box-shadow: 0 2px 2px rgb(158, 158, 158);
+
+    background-image: linear-gradient(75deg, #7F7FD5 ,#86A8E7, #076585,#badff5);
+    background-size: 300% ;
+    background-position: right;
+    
+    transition: 300ms background-position ease-in-out;
+
+    color: rgb(255, 255, 255);
+
+}
+
+.form-queue-btn:hover{
+
+    box-shadow: none;
+
+}
+
+.form-queue-btn:active{
+    background-position: left;
+}
+
+.form-cancel-btn{
+
+    font-weight: bold ;
+
+    font-size: large;
+
+    margin: 40px;
+
+    width: 60%;
+
+    height: 40px;
+
+    border: 2px solid rgb(0, 0, 0);
+
+    border-radius: 5px;
+
+    box-shadow: 0 2px 2px rgb(158, 158, 158);
+
+    background-image: linear-gradient(75deg, #FDC830, #F37335, #f12711, #f5af19); 
+    background-size: 300% ;
+    background-position: right;
+    
+    transition: 300ms background-position ease-in-out;
+
+    color: rgb(255, 255, 255);
+}
+
+.form-cancel-btn:hover{
+
+    box-shadow: none;
+
+}
+
+.form-cancel-btn:active{
+    background-position: left;
+}
