@@ -1,4 +1,4 @@
-//gcc -Wall backend.c -o b -lpaho-mqtt3c -ljson-c -lmysqlclient -lpthread `pkg-config --cflags gtk+-3.0` `pkg-config --libs gtk+-3.0` 
+//gcc -Wall backed.c -o b -lpaho-mqtt3c -ljson-c -lmysqlclient -lpthread `pkg-config --cflags gtk+-3.0` `pkg-config --libs gtk+-3.0` 
 //mosquitto -c /etc/mosquitto/conf.d/default.conf
 
 #include <json-c/json.h>
@@ -17,7 +17,7 @@
 
 #define NUM_JSON_ELEMENT     4
 #define ADDRESS             "ws://localhost:9001"
-#define CLIENTID            "ExampleClientPub"
+#define CLIENTID            "Restaurant"
 #define TOPIC               "request/#"
 #define QOS                  2
 #define TIMEOUT              10000L
@@ -61,8 +61,6 @@ struct res_obj
 struct res_obj respond;
 MQTTClient client;
 
-void myCSS(void);
-
 static pthread_t chk_almost; 
 static pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
@@ -88,13 +86,13 @@ void finish_with_error(MYSQL *con)
 
 void send_status(char* id ,char*stat)
 {
-  printf("%s",stat);
+  //printf("%s",stat);
   MQTTClient_message pubmsg = MQTTClient_message_initializer;
   char t_opic[50];
   char payload[10];
 
   sprintf(t_opic,"respond/%s",id);
-  printf("id = %s\n",id);
+  //printf("id = %s\n",id);
   sprintf(payload,"%s",stat);
 
   pubmsg.payload = payload;
@@ -127,7 +125,7 @@ void send_res(char* id,int Q,int R)
 void send_recent_remaining(int R)
 {
   MQTTClient_message pubmsg = MQTTClient_message_initializer;
-  char payload[20];
+  char payload[50];
   if(R==0)R=-1;
   sprintf(payload,"{\"recent_remaining\":\"%d\"}",R+1); 
   pubmsg.payload = payload;
@@ -211,8 +209,8 @@ void *Thread_job()
         }  
         int num_fields = mysql_num_fields(result);
         if(num_fields<1){
-        printf("no fields returned");
-        finish_with_error(con);
+            printf("no fields returned");
+            finish_with_error(con);
         }
         MYSQL_ROW row;
         int size = mysql_num_rows(result);
@@ -287,26 +285,32 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
     printf("     topic: %s\n", topicName);
         
     char* payloadptr = message->payload;
-    printf("%s\n",payloadptr);
-    if (strcmp(payloadptr,"Disconnect unexpected")==0)
+    char* msg = malloc(((message->payloadlen)+1)*sizeof(char));
+    for(int i =0;i<message->payloadlen;i++)
+    {
+        msg[i]= payloadptr[i];
+    }
+    msg[(message->payloadlen)]='\0';
+    printf("%s\n",msg);
+    if (strcmp(msg,"Disconnect unexpected")==0)
     {
         MQTTClient_freeMessage(&message);
         MQTTClient_free(topicName);
     	return 1;
     }
-    else if(payloadptr[0] == 'C')
+    else if(msg[0] == 'C')
     {
-        int len  = (int)strlen(payloadptr);
+        int len  = (int)strlen(msg);
         char cid[len-2];
         for(int i = 2;i<len;i++)
         {
-            cid[i-2] = payloadptr[i];
+            cid[i-2] = msg[i];
         }
         canc_count++;
         cancelbyclient(cid);
         return 1;
     }
-    json_object *json_obj = json_tokener_parse(payloadptr);         
+    json_object *json_obj = json_tokener_parse(msg);         
     for(int i =0 ; i < NUM_JSON_ELEMENT ; i++)
     {
         json_object *dummy;
@@ -370,6 +374,7 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
     }
 
     free(query);
+    free(msg);
     mysql_close(con);
     MQTTClient_freeMessage(&message);
     MQTTClient_free(topicName);
@@ -831,6 +836,7 @@ void refbutton_callback(GtkWidget *b1,gpointer data)
     statesel = 0;
     canc_count = 0;
     gtk_entry_set_placeholder_text(GTK_ENTRY(Entryq),"");
+    gtk_entry_set_text (GTK_ENTRY(Entryq),"");
     gtk_tree_store_clear(store);
     MYSQL *con = mysql_init(NULL);
 
@@ -897,7 +903,7 @@ void activate( GtkApplication *app, gpointer user_data ){
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);                                                 //create window
     gtk_window_set_title(GTK_WINDOW(window), "Somsri Restaurant");
     gtk_container_set_border_width(GTK_CONTAINER(window), 10);
-    gtk_window_fullscreen(window);
+    //gtk_window_fullscreen(window);
     g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(btn_clicked), (gpointer) window);    //If selected, press the destroy button on the top right.
 
     vbox00 = gtk_vbox_new (FALSE, 0);                                                             //Vertical box, if added later will be added below.
@@ -974,35 +980,35 @@ void activate( GtkApplication *app, gpointer user_data ){
 
     renderer = gtk_cell_renderer_text_new();                                //widgets are used to display information within widgets
     column = gtk_tree_view_column_new_with_attributes(                      //create column
-        "           QUEUE           ", 
+        "QUEUE                                  ", 
         renderer, 
         "text", COL_QUEUE, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(tree), column);               //append the column
 
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes(
-        "           NAME            ", 
+        "NAME                                  ", 
         renderer, 
         "text", COL_NAME, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(tree), column);
 
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes(
-        "       NUMBER of PEOPLE        ", 
+        "NUMBER of PEOPLE                                  ", 
         renderer, 
         "text", COL_NUMBER, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(tree), column);
 
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes(
-        "       Telephone Number        ", 
+        "Telephone Number                                  ", 
         renderer, 
         "text", COL_TEL, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(tree), column);
 
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes(
-        "           STATUS          ", 
+        "STATUS                                  ", 
         renderer, 
         "text", COL_STATUS, NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(tree), column);
