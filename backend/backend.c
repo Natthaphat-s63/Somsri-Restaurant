@@ -1,4 +1,4 @@
-//gcc -Wall backed.c -o b -lpaho-mqtt3c -ljson-c -lmysqlclient -lpthread `pkg-config --cflags gtk+-3.0` `pkg-config --libs gtk+-3.0` 
+//gcc -Wall backend.c -o b -lpaho-mqtt3c -ljson-c -lmysqlclient -lpthread `pkg-config --cflags gtk+-3.0` `pkg-config --libs gtk+-3.0` 
 //mosquitto -c /etc/mosquitto/conf.d/default.conf
 
 #include <json-c/json.h>
