@@ -7,13 +7,16 @@ function ShowQueue(props) {
     let[disp_q, setdisp_q] = useState('--');
     let[disp_r, setdisp_r] = useState('--');
     useEffect(()=>{
-        if((disp_r<5 && disp_r>0) && (disp_q !== '--'))
-        {  
-            toast.warn(disp_r.toString()+' queues remain ',{position: toast.POSITION.TOP_LEFT,autoClose:8000});
-        }
-        else if(disp_r == 0 && (disp_q !== '--'))
+        if(disp_q !== '--')
         {
-            toast.success('Your turn!!! ',{position: toast.POSITION.TOP_LEFT,autoClose:8000});
+            if(disp_r<5 && disp_r>0)
+            {  
+                toast.warn(disp_r.toString()+' queues remain ',{position: toast.POSITION.TOP_LEFT,autoClose:8000});
+            }
+            else if(disp_r == 0)
+            {
+                toast.success('Your turn!!! ',{position: toast.POSITION.TOP_LEFT,autoClose:8000});
+            }
         }
     },[disp_r,disp_q]);
 
