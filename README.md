@@ -49,6 +49,7 @@ https://www.eclipse.org/paho/
 https://zetcode.com/db/mysqlc/
 - We use json-c because we use JSON format for sending/recieve the datas through mqtt broker from user to restaurant. 
 https://github.com/json-c/json-c
+- We use pthread.h for multithread to perform parallel task along with main task.
 
 
 *GUI*
