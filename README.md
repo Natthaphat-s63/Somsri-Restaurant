@@ -41,7 +41,7 @@ https://mosquitto.org/
 
 *GUI*
  
- - We use gtk3+ to create the gui backend because we've use it before and it suits with linux environment.
+ - We use gtk3+ to create the gui as POS program for employee to manage the queue because we've use it before and it suits with linux environment.
   https://docs.gtk.org/gtk3/
 
 *Database*
@@ -49,8 +49,15 @@ https://mosquitto.org/
  - We use mysql version.. as database because for our data , it suits with relational database then we have to use SQL language and mysql help us to manage all the database work and mysql has C library that is easy to use.
  - We also use mysql workbench version.. for helping us to develop the database side.
  
- 
-**Process**
+
+# Process
+
+![image](https://user-images.githubusercontent.com/87507926/141610812-0a860c75-8395-45c6-90ac-a22716a12a82.png)
 
 
+This picture show how all the process connect with each other.
+
+So start from left to right (web frontend to backend).
+
+*Web frontend*
 
