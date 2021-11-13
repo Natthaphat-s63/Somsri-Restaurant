@@ -20,6 +20,9 @@ for more detail:
  https://sweetalert2.github.io
 - We use react-toastify version 8.0.3 for notification because it's easy to implement with react
  https://www.npmjs.com/package/react-toastify
+ 
+ - We use UUID version 8.3.2 for generate uniqe Client_id.
+ https://www.npmjs.com/package/uuid
 
  *Connecting*
 
@@ -34,11 +37,19 @@ for more detail:
 - We develop and run on ubuntu 20.04 LTS because it's stable and has long term support.
 - We use mosquitto version 2.0.13 as local mqtt broker because it's easy to implement the mqtt over websocket and we have set it to automatically open the broker on startup of the OS. So the backend side own the broker, database and queue system. 
 https://mosquitto.org/
+- We use Visual Studio code IDE version 1.62.2 for develop both backend and frontend sides because it easy to use and it has many tools and feature to help develop this project faster than using other IDE.
+- We use GCC Compiler version 9.3.0 that comes with ubuntu 20.04 LTS.
 
-*System*
+*Backend development tools*
 
 - We use C language version C17 for all the system and GUI development because ubuntu comes with gcc compiler and C is very fast so it serve our work efficiently.
 - We use paho mqtt library version 1.3.9 for implementing mqtt in C language because it's more flexible than mosquitto.h library.  
+https://www.eclipse.org/paho/
+- We use mysql.h for communicate with database from C program.
+https://zetcode.com/db/mysqlc/
+- We use json-c because we use JSON format for sending/recieve the datas through mqtt broker from user to restaurant. 
+https://github.com/json-c/json-c
+
 
 *GUI*
  
