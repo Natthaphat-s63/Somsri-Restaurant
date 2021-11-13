@@ -59,5 +59,6 @@ This picture show how all the process connect with each other.
 
 So start from left to right (web frontend to backend).
 
-*Web frontend*
+ First, Client or user using website, entering the informations (Name,Number of guest,Tel) and the web frontend will automaticlly generate Client_id for authorize the user (using uuid to generate).
+ Then, when user has sent the informations (with Client_id), they will go through mqtt over websocket and go to the broker with the topic call "request". In the other side Backend program will recieve the informations order by the broker then the program will connect to database to collect the data and to use data for queue system. After finish all the calculating and collecting data, the backend program will send the queue number and remaining queue for that specific user by sending back through topic call "respond/{Client_id}". Then the user will recieve respond datas through "respond/{Client_id}" topic and then save them on localstorage that have expired date information to delete day by day. We have to save them on localstorage because when user close the website after they submit it will not reset all the informations and status and we use localstorage for real time display 
 
