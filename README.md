@@ -6,7 +6,8 @@ To see the report for each week, you can select by the braches of this repo.
 ![image](https://user-images.githubusercontent.com/87507926/141608816-c021ae5e-8774-4c82-a0cb-764c8e4f5c0b.png)
 
 This picture show the overall tools that we used.
-In details:
+
+for more detail:
 
 **Web Frontend**
  
