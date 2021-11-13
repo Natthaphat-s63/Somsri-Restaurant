@@ -32,7 +32,7 @@ for more detail:
 *Environment*
 
 - We develop and run on ubuntu 20.04 LTS because it's stable and has long term support.
-- We use mosquitto version 2.0.13 as local mqtt broker because it's easy to implement the mqtt over websocket. So the backend side own the broker, database and queue system. 
+- We use mosquitto version 2.0.13 as local mqtt broker because it's easy to implement the mqtt over websocket and we have set it to automatically open the broker on startup of the OS. So the backend side own the broker, database and queue system. 
 https://mosquitto.org/
 
 *System*
