@@ -77,7 +77,7 @@ And then the backend program will send the queue number and remaining queue ever
 
 That's all for the main task but there are 2 parallel tasks that are working along but use the same kind of connection like in the picture.
 
-- First task is realtime recent remaining queue that show before user submit the informations so the user can check that if they booked what queue they will get. the recent remaining queue will process by backend program using multithread to work along other tasks. the recent remaining queue will sent by backend through "recent_remianing" topic.
+- First task is realtime recent remaining queue that show before user submit the informations so the user can check that if they booked how many queues that user have to waiting. the recent remaining queue will process by backend program using multithread to work along other tasks. the recent remaining queue will sent by backend through "recent_remianing" topic.
 
 - Second task is Cancellation from both user and from restaurant and Confirmation from restaurant. User can cancel their queue then sending the cancel request in the "request" topic then the backend program will get the request and cancel the queue and update the remaining queue. After user cancel the web browser will automaticly wipe out all the datas and refresh the webpage. For the restaurant side the cancellation and confirmation will manage by the employee of the restaurant or who that has this duty and send the responf to specific user that they are has been cancel or confirm the queue by restaurant then the web page will wipe out all the datas and refresh the webpage.
 
