@@ -126,8 +126,7 @@ void send_recent_remaining(int R)
 {
   MQTTClient_message pubmsg = MQTTClient_message_initializer;
   char payload[50];
-  if(R==0)R=-1;
-  sprintf(payload,"{\"recent_remaining\":\"%d\"}",R+1); 
+  sprintf(payload,"{\"recent_remaining\":\"%d\"}",R); 
   pubmsg.payload = payload;
   pubmsg.payloadlen = strlen(payload);
   pubmsg.qos = QOS;
@@ -156,14 +155,6 @@ int remaining(int Q)
         printf("\nEmpty result\n");
         return;
     }
-
-    int num_fields = mysql_num_fields(result);
-
-    if(num_fields<1){
-            printf("no fields returned");
-            finish_with_error(con);
-    }
-
     int count = 0;
     char q_str[10] ;
     sprintf(q_str,"%d",Q);
@@ -197,7 +188,7 @@ void *Thread_job()
         }
         if (mysql_real_connect(con,"localhost", "root", "password","mydb", 0, NULL, 0) == NULL)finish_with_error(con);
         char *query = malloc(120);
-        sprintf(query,"SELECT queue,c_id,tel FROM queue WHERE DATE(time_login) = '%s' AND status = 'WFA'",date);
+        sprintf(query,"SELECT queue,c_id FROM queue WHERE DATE(time_login) = '%s' AND status = 'WFA'",date);
         if (mysql_query(con, query))finish_with_error(con);
         MYSQL_RES *result = mysql_store_result(con);
         if (mysql_num_rows(result)==0)
@@ -223,7 +214,6 @@ void *Thread_job()
         {
             row = mysql_fetch_row(result);
             int remain = remaining(atoi(row[0]));
-
             queue_recorder[i]=atoi(row[0]);
             if(remain_recorder[i] != remain) // if remain updated
             {
@@ -233,7 +223,7 @@ void *Thread_job()
             remain_recorder[i] = remain;
             i++;
         }
-        send_recent_remaining(remain_recorder[size-1]);          
+        send_recent_remaining(remain_recorder[size-1]+1);          
         free(remain_recorder);
         free(queue_recorder);
         free(query);
@@ -903,7 +893,7 @@ void activate( GtkApplication *app, gpointer user_data ){
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);                                                 //create window
     gtk_window_set_title(GTK_WINDOW(window), "Somsri Restaurant");
     gtk_container_set_border_width(GTK_CONTAINER(window), 10);
-    //gtk_window_fullscreen(window);
+    gtk_window_fullscreen(window);
     g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(btn_clicked), (gpointer) window);    //If selected, press the destroy button on the top right.
 
     vbox00 = gtk_vbox_new (FALSE, 0);                                                             //Vertical box, if added later will be added below.
