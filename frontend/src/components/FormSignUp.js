@@ -118,7 +118,6 @@ if(topic === sub_topic)
 });
 var errors = {};
 function ValidateInfo(values){
-        //('Check Validation.')
         if (!values.Name.trim()) {
             errors.Name = 'Name required.';
         }
@@ -226,8 +225,6 @@ const FormSignUp = () => {
             ValidateInfo(values);
         
             e.preventDefault();
-            //console.log("handleSubmit");
-            //console.log(values);
             
             Swal.fire({
                     title: 'Are you sure you want to confirm?',
@@ -250,8 +247,7 @@ const FormSignUp = () => {
                 
                     if(is_connected)
                     {
-                        client.publish(pub_topic,JSON.stringify(json_test),{qos:1});
-                        //console.log(JSON.stringify(json_test));
+                        client.publish(pub_topic,JSON.stringify(json_test),{qos:2});
                     }
                     setState({...state, buttons: true, inputs: true});
                     Swal.fire({
@@ -260,8 +256,7 @@ const FormSignUp = () => {
                         icon:'success',
                         showCloseButton: true,
                     })
-                    //console.log('Submit');
-                    //console.log(state);
+                  
                 }
                 else if(result.isDismissed)
                 {
