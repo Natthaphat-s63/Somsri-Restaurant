@@ -85,7 +85,7 @@ That's all for the main task but there are 2 parallel tasks that are working alo
 
 - Second task is Cancellation from both user and from restaurant and Confirmation from restaurant. User can cancel their queue then sending the cancel request in the "request" topic then the backend program will get the request and cancel the queue and update the remaining queue. After user cancel the web browser will automaticly wipe out all the datas and refresh the webpage. For the restaurant side the cancellation and confirmation will manage by the employee of the restaurant or who that has this duty and send the responf to specific user that they are has been cancel or confirm the queue by restaurant then the web page will wipe out all the datas and refresh the webpage.
 
-*Database Design*
+# Database Design
 
 ![image](https://user-images.githubusercontent.com/87507926/141933367-0b475e3c-1a88-49df-97bb-e95bc566443a.png)
 
