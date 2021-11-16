@@ -1,6 +1,10 @@
 # Project Somsri restaurant
 This Project is all about using MQTT protocol to create web application. The Application is about restaurant reservation.
-To see the report for each week, you can select by the braches of this repo.
+To see the report for each week, you can select by the braches of this repo. And the final product is in the Week4&5 branches.
+
+
+For more detail you can check this out :
+https://youtu.be/WvIgsM9eyjk
 
 # Overview 
 ![image](https://user-images.githubusercontent.com/87507926/141608816-c021ae5e-8774-4c82-a0cb-764c8e4f5c0b.png)
@@ -81,6 +85,3 @@ That's all for the main task but there are 2 parallel tasks that are working alo
 
 - Second task is Cancellation from both user and from restaurant and Confirmation from restaurant. User can cancel their queue then sending the cancel request in the "request" topic then the backend program will get the request and cancel the queue and update the remaining queue. After user cancel the web browser will automaticly wipe out all the datas and refresh the webpage. For the restaurant side the cancellation and confirmation will manage by the employee of the restaurant or who that has this duty and send the responf to specific user that they are has been cancel or confirm the queue by restaurant then the web page will wipe out all the datas and refresh the webpage.
 
-
-For more detail you can check this out :
-{video present}
