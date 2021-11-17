@@ -32,7 +32,7 @@ But the problem about using shell script is it require full path to the shell sc
 We decide to create 2 tabs, the first tab is about handling queue in a day and the second tab is about inspect the datas in database.
 Both of 2 tabs use listbox and display as table like in database and you can select a row by click on it and if the datas are too may the list box have a scrollbar. And the gui have exit button on both tabs that when you click on it, it'll ask you to ensure the exit.
 
-<img src = "backendgui2_6.png" width = 600>
+<img src = "backendgui2_6.jpg" width = 600>
 
 *First tab*:
 
@@ -42,16 +42,16 @@ You can search by queue number to find the data of that queue by tying queue num
 
 You can cancel the queue and confirm the queue by select the row and clik cancel button or confirm button then the status of that queue will change to CBA (cancle by admin) and DON (Done). The queue data that show on the table it will show only the status is WFA (Waiting for admin) so if you cancle or confirm the queue it will dissappear from table(but you can inspect them in the second tab).
 
-<img src = "backendgui2_1.png" width = 600>
-<img src = "backendgui2_2.png" width = 600>
+<img src = "backendgui2_1.jpg" width = 600>
+<img src = "backendgui2_2.jpg" width = 600>
 
 *Second tab*:
 
 In this tab, like the first tab but it can only inspect the data by searching by Name,Date,Tel,Number of people (right now search by date can't use). If you do not enter anything in search entry and click search button, it'll show all the data in database. But this tabs not support auto refresh so you need to click refresh button if you want to inpect the datas.
 
-<img src = "backendgui2_3.png" width = 600>
-<img src = "backendgui2_4.png" width = 600>
-<img src = "backendgui2_5.png" width = 600>
+<img src = "backendgui2_3.jpg" width = 600>
+<img src = "backendgui2_4.jpg" width = 600>
+<img src = "backendgui2_5.jpg" width = 600>
 
 
 # Conclusion
