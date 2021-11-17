@@ -41,7 +41,7 @@
  - Number of Guests entry can only enter number between 1 to 10.
  - Phone entry can only enter 10 digit numbers.
 
- <img src = "invalidinput1.png" width=300>
+ <img src = "invalidinput1.jpeg" width=300>
  <img src = "invalidinput2.png" width=300>
  
  And finally, we have use pop-ups to show that clients are have some connection problems or the restaurant are not available.
