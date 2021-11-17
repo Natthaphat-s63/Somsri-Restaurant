@@ -55,6 +55,6 @@ We have created frontend and backend of the website that can send data through e
 
 the result:
 
-<img src="backend_guit1.png">
+<img src="backend_gui1.jpg">
 
-<img src="database1.png">
+<img src="database1.jpg">
