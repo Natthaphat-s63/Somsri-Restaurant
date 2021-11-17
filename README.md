@@ -31,8 +31,8 @@ The idea behind calculate the remaining queue is count from database how many qu
 
 Change some design and add the protection for fault input that leads to bug in program.
 
-<img src="backendgui3_1.png" width = 400>
-<img src="backendgui3_2.png" width = 400>
+<img src="backendgui3_1.jpg" width = 600>
+<img src="backendgui3_2.jpg" width = 600>
 
 **NOTE: if we change to fullscreen mode all label will be in the correct position.
 
