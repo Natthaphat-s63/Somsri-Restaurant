@@ -18,7 +18,7 @@ Change some design and implement some features such as
  Right now frontend side not fully functional there are some features that we can't do and there are some bugs too.
  
 <img src="frontend3_2.png" width = 400>
-<img src="frontend3_1.jpg" width = 400>
+<img src="frontend3_1.jpeg" width = 400>
 
 # Report for Backend
 We can sending real time data by using multithread to checking remaining queue for every queue that are in WFA status.
